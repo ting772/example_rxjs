@@ -1,0 +1,26 @@
+<html>
+
+<head></head>
+
+<body>
+  <script src="../../libs/rxjs.umd.js">  </script>
+  <script>
+    const { throttleTime, fromEvent, map, scan } = rxjs
+
+    //每次点击间隔1s
+    // fromEvent(document, 'click')
+    //   .pipe(
+    //     throttleTime(1000),
+    //   )
+    //   .subscribe(console.log);
+
+    //每次点击间隔1s，并累加点击处x值
+    fromEvent(document, 'click').pipe(
+      throttleTime(1000),
+      map(e => e.clientX),
+      scan((acc, x) => acc + x, 0)
+    ).subscribe(console.log)
+  </script>
+</body>
+
+</html>

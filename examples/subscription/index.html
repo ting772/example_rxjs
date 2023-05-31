@@ -1,0 +1,37 @@
+<html>
+
+<head></head>
+
+<body>
+  <script src="../../libs/rxjs.umd.js">  </script>
+  <script>
+    const { fromEvent, Observable } = rxjs
+    let subscription = fromEvent(document, 'click').subscribe(console.log)
+
+    setTimeout(() => {
+      console.log("取消订阅document点击")
+      subscription.unsubscribe()
+    }, 2000)
+
+
+    let customOb = new Observable((subscriber) => {
+      const timer = setInterval(() => {
+        subscriber.next(Math.floor(Math.random() * 100))
+        console.log("interval定时器执行中")
+      }, 500)
+
+      //清理函数
+      return () => {
+        console.log("执行了unsubscribe函数")
+        clearInterval(timer)
+      }
+    })
+
+    let customSubscription = customOb.subscribe(console.log)
+    setTimeout(() => {
+      customSubscription.unsubscribe()
+    }, 2000)
+  </script>
+</body>
+
+</html>

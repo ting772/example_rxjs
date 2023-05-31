@@ -1,0 +1,44 @@
+<html>
+
+<head></head>
+
+<body>
+  <script src="../../libs/rxjs.umd.js">  </script>
+  <script>
+    const { Observable } = rxjs
+
+    //basic
+    // let observable = new Observable((subscriber) => {
+    //   subscriber.next(1)
+    //   subscriber.next(2)
+    //   subscriber.next(3)
+    //   subscriber.complete()
+    // })
+
+    // let observable = new Observable((subscriber) => {
+    //   subscriber.next("a")
+    //   subscriber.next("b")
+    //   subscriber.next("c")
+    //   throw Error('故意抛出的异常')
+    // })
+
+    let observable = new Observable((subscriber) => {
+      try {
+        subscriber.next("a")
+        subscriber.next("b")
+        subscriber.next("c")
+        throw Error('故意抛出的异常')
+      } catch (e) {
+        subscriber.error(e)
+      }
+      console.log("执行到这儿了")
+      subscriber.next("d")//不可能接受到的值
+    })
+
+    observable.subscribe(console.log, err => {
+      console.log("捕捉到异常", err)
+    })
+  </script>
+</body>
+
+</html>

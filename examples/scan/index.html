@@ -1,0 +1,18 @@
+<html>
+
+<head></head>
+
+<body>
+  <script src="../../libs/rxjs.umd.js">  </script>
+  <script>
+    const { fromEvent, scan, map } = rxjs
+
+    fromEvent(document, 'click')
+      .pipe(
+        scan((total) => total + 1, 0),
+      )
+      .subscribe(console.log);
+  </script>
+</body>
+
+</html>
