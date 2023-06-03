@@ -1,0 +1,20 @@
+<html>
+
+<head></head>
+
+<body>
+  <script src="../../libs/rxjs.umd.js">  </script>
+  <script>
+    const { fromEvent, scan, map } = rxjs
+    let e$ = fromEvent(document, 'click')
+    let a$ = e$.pipe(map(e => {
+      return e.pageX
+    }))
+
+    //不相等
+    console.log(e$ == a$)
+
+  </script>
+</body>
+
+</html>
